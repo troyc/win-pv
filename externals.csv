@@ -1,0 +1,9 @@
+uri,outFile,sha256hash
+https://xenbits.xenproject.org/pvdrivers/win/9.0.0/xenvkbd.tar,xenvkbd.tar,B4F82EE0B66EBD9C6599C017F9EF4B943A3A260D8D55A6E1FA060585A31AB589
+https://xenbits.xenproject.org/pvdrivers/win/9.0.0/xenhid.tar,xenhid.tar,85A53CFD85BACC2B74E28464608E59C7BD7554F64A0BA0A4A8F47539B04CAD4F
+https://xenbits.xenproject.org/pvdrivers/win/9.0.0/xencons.tar,xencons.tar,E03CE84B0B89F9AC595DC82AD8651C02347716510CCCADD1339AA2B90CAC2FE1
+https://xenbits.xenproject.org/pvdrivers/win/9.0.0/xenvbd.tar,xenvbd.tar,CE23961AC45BCC40B7219FA8ED7F41AA9A76D5BCA5E8F0C88C5AF04ABFBAFBAB
+https://xenbits.xenproject.org/pvdrivers/win/9.0.0/xennet.tar,xennet.tar,9D94C1EE04C82B4060A8D3E1301C3BECE46C440091B6512DE4DBE602FC298109
+https://xenbits.xenproject.org/pvdrivers/win/9.0.0/xenvif.tar,xenvif.tar,CEF7366EF832CADB069EA57125FB3755B6B96A910F51A62E35C8D31012304788
+https://xenbits.xenproject.org/pvdrivers/win/9.0.0/xeniface.tar,xeniface.tar,8A59A48A6D4E1F3CFBCC3B4165A1278B8FE4AF5A2D8B7C6DEC14D4B8DE65F19A
+https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip,wix.zip,2C1888D5D1DBA377FC7FA14444CF556963747FF9A0A289A3599CF09DA03B9E2E

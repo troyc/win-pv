@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'
+     xmlns:difx='http://schemas.microsoft.com/wix/DifxAppExtension'
+     xmlns:iis='http://schemas.microsoft.com/wix/IIsExtension'>
+
+  <?define DIR_XENBUS = $(var.SolutionDir)xenbus\xenbus\$(var.Platform)\ ?>
+  <?define DIR_XENCONS = $(var.SolutionDir)xencons\$(var.Platform)\ ?>
+  <?define DIR_XENIFACE = $(var.SolutionDir)xeniface\$(var.Platform)\ ?>
+  <?define DIR_XENHID = $(var.SolutionDir)xenhid\$(var.Platform)\ ?>
+  <?define DIR_XENVKBD = $(var.SolutionDir)xenvkbd\$(var.Platform)\ ?>
+  <?define DIR_XENVIF = $(var.SolutionDir)xenvif\$(var.Platform)\ ?>
+  <?define DIR_XENNET = $(var.SolutionDir)xennet\$(var.Platform)\ ?>
+  <?define DIR_XENVBD = $(var.SolutionDir)xenvbd\$(var.Platform)\ ?>
+  <?define DIR_XENVUSB = $(var.SolutionDir)xenvusb\xenvusb\$(var.Platform)\ ?>
+  <?define DIR_XENUSBDEVICE = $(var.SolutionDir)xenusbdevice\xenusbdevice\$(var.Platform)\ ?>
+
+  <?define DIR_CERTS = $(var.ProjectDir) ?>
+  <?define CERT_TESTSIGNING = testsigning.cer ?>
+  
+  <Product Id="*" Name="OpenXT Tools" Language="1033" Version='9.0.0' Manufacturer="OpenXT" UpgradeCode="D5FFB704-D8B7-4D05-A866-7C57F21F88D1">
+    <Package Description="OpenXT Tools" Manufacturer="OpenXT" InstallerVersion="301" Compressed="yes" InstallScope="perMachine" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+    <Feature Id="OpenXTTools" Title="OpenXT Tools">
+      <ComponentGroupRef Id="Certs" />
+      <ComponentGroupRef Id="XenTools" />
+      <ComponentGroupRef Id="MiscDrivers" />
+    </Feature>
+    <InstallExecuteSequence>
+      <ScheduleReboot After="InstallFinalize"/>
+    </InstallExecuteSequence>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="OpenXTTools" Name="OpenXT Tools">
+          <Directory Id="Certs" Name="certs" />
+          <Directory Id="Xenbus" Name="xenbus" />
+          <Directory Id="Xencons" Name="xencons" />
+          <Directory Id="Xeniface" Name="xeniface" />
+          <Directory Id="Xenvbd" Name="xenvbd" />
+          <Directory Id="Xenvif" Name="xenvif" />
+          <Directory Id="Xennet" Name="xennet" />
+          <Directory Id="Xenhid" Name="xenhid" />
+          <Directory Id="Xenvkbd" Name="xenvkbd" />
+          <Directory Id="Xenvusb" Name="xenvusb" />
+          <Directory Id="Xenusbdevice" Name="xenusbdevice" />
+        </Directory>
+      </Directory>
+    </Directory>
+    <Binary Id='TestsigningBinary' SourceFile='$(var.DIR_CERTS)$(var.CERT_TESTSIGNING)' />
+    <ComponentGroup Id="Certs">
+      <Component Id='Certificate' Guid='5C7998EF-6EFF-43E1-8EB6-AA6BAA15434B' Directory='Certs'>
+        <File Id='Testsigning' Name='$(var.CERT_TESTSIGNING)' Source='$(var.DIR_CERTS)$(var.CERT_TESTSIGNING)' KeyPath='yes' />
+        <iis:Certificate Id='Testsigning'
+                         BinaryKey='TestsigningBinary'
+                         Name='$(var.CERT_TESTSIGNING)'
+                         StoreLocation='localMachine'
+                         StoreName='root'
+                         Request='no'
+                         Overwrite='yes'
+        />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="XenTools">
+      <Component Id='Xenbus' Guid='4A5B5964-EAB7-488B-ACFA-DFDB228BA423' Directory='Xenbus'>
+        <File Id='XenbusSys' Source='$(var.DIR_XENBUS)xenbus.sys' KeyPath='yes' />
+        <File Id='XenbusInf' Source='$(var.DIR_XENBUS)xenbus.inf' />
+        <File Id='XenbusCat' Source='$(var.DIR_XENBUS)xenbus.cat' />
+        <File Id='XenSys' Source='$(var.DIR_XENBUS)xen.sys' />
+        <File Id='XenfiltSys' Source='$(var.DIR_XENBUS)xenfilt.sys' />
+        <File Id='XenbusCoinst' Source='$(var.DIR_XENBUS)xenbus_coinst.dll' />
+        <File Id='XenbusMonitorDll' Source='$(var.DIR_XENBUS)xenbus_monitor.dll' />
+        <File Id='XenbusMonitorExe' Source='$(var.DIR_XENBUS)xenbus_monitor.exe' />
+        <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' />
+      </Component>
+      <Component Id='Xencons' Guid='2FB2923A-7023-48EB-9814-4748BA7AFE1E' Directory='Xencons'>
+        <File Id='XenconsSys' Source='$(var.DIR_XENCONS)xencons.sys' KeyPath='yes' />
+        <File Id='XenconsInf' Source='$(var.DIR_XENCONS)xencons.inf' />
+        <File Id='XenconsCat' Source='$(var.DIR_XENCONS)xencons.cat' />
+        <File Id='XenconsCoinst' Source='$(var.DIR_XENCONS)xencons_coinst.dll' />
+        <File Id='XenconsMonitorDll' Source='$(var.DIR_XENCONS)xencons_monitor.dll' />
+        <File Id='XenconsMonitorExe' Source='$(var.DIR_XENCONS)xencons_monitor.exe' />
+        <File Id='XenconsTtyExe' Source='$(var.DIR_XENCONS)xencons_tty.exe' />
+        <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' />
+      </Component>
+      <Component Id='Xeniface' Guid='E0DC80E8-5A9E-4F92-87C0-CBF17C11B384' Directory='Xeniface'>
+        <File Id='XenifaceSys' Source='$(var.DIR_XENIFACE)xeniface.sys' KeyPath='yes' />
+        <File Id='XenifaceInf' Source='$(var.DIR_XENIFACE)xeniface.inf' />
+        <File Id='XenifaceCat' Source='$(var.DIR_XENIFACE)xeniface.cat' />
+        <File Id='XenifaceCoinst' Source='$(var.DIR_XENIFACE)xeniface_coinst.dll' />
+        <File Id='XenagentDll' Source='$(var.DIR_XENIFACE)xenagent.dll' />
+        <File Id='XenagentExe' Source='$(var.DIR_XENIFACE)xenagent.exe' />
+        <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' />
+      </Component>
+      <Component Id='Xenhid' Guid='C9534D9E-3ADB-443E-8DCF-24EF77AA69E8' Directory='Xenhid'>
+        <File Id='XenhidSys' Source='$(var.DIR_XENHID)xenhid.sys' KeyPath='yes' />
+        <File Id='XenhidInf' Source='$(var.DIR_XENHID)xenhid.inf' />
+        <File Id='XenhidCat' Source='$(var.DIR_XENHID)xenhid.cat' />
+        <File Id='XenhidCoinst' Source='$(var.DIR_XENHID)xenhid_coinst.dll' />
+        <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' />
+      </Component>
+      <Component Id='Xenvkbd' Guid='B3C80249-E80F-4CA4-A293-8E858B45288C' Directory='Xenvkbd'>
+        <File Id='XenvkbdSys' Source='$(var.DIR_XENVKBD)xenvkbd.sys' KeyPath='yes' />
+        <File Id='XenvkbdInf' Source='$(var.DIR_XENVKBD)xenvkbd.inf' />
+        <File Id='XenvkbdCat' Source='$(var.DIR_XENVKBD)xenvkbd.cat' />
+        <File Id='XenvkbdCoinst' Source='$(var.DIR_XENVKBD)xenvkbd_coinst.dll' />
+        <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' />
+      </Component>
+      <Component Id='Xenvif' Guid='AA02F568-3DC4-43B6-83BC-75832CA4E4F0' Directory='Xenvif'>
+        <File Id='XenvifSys' Source='$(var.DIR_XENVIF)xenvif.sys' KeyPath='yes' />
+        <File Id='XenvifInf' Source='$(var.DIR_XENVIF)xenvif.inf' />
+        <File Id='XenvifCat' Source='$(var.DIR_XENVIF)xenvif.cat' />
+        <File Id='XenvifCoinst' Source='$(var.DIR_XENVIF)xenvif_coinst.dll' />
+        <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' />
+      </Component>
+      <Component Id='Xennet' Guid='3E83BF0A-9405-4523-B418-605D33EC0345' Directory='Xennet'>
+        <File Id='XennetSys' Source='$(var.DIR_XENNET)xennet.sys' KeyPath='yes' />
+        <File Id='XennetInf' Source='$(var.DIR_XENNET)xennet.inf' />
+        <File Id='XennetCat' Source='$(var.DIR_XENNET)xennet.cat' />
+        <File Id='XennetCoinst' Source='$(var.DIR_XENNET)xennet_coinst.dll' />
+        <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' />
+      </Component>
+      <Component Id='Xenvbd' Guid='30D77968-F9A7-4466-8436-2A3020F007F3' Directory='Xenvbd'>
+        <File Id='XenvbdSys' Source='$(var.DIR_XENVBD)xenvbd.sys' KeyPath='yes' />
+        <File Id='XenvbdInf' Source='$(var.DIR_XENVBD)xenvbd.inf' />
+        <File Id='XenvbdCat' Source='$(var.DIR_XENVBD)xenvbd.cat' />
+        <File Id='XencrshSys' Source='$(var.DIR_XENVBD)xencrsh.sys' />
+        <File Id='XendiskSys' Source='$(var.DIR_XENVBD)xendisk.sys' />
+        <File Id='XenvbdCoinst' Source='$(var.DIR_XENVBD)xenvbd_coinst.dll' />
+        <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="MiscDrivers">
+    <Component Id='Xenvusb' Guid='F6E5C176-7869-49FD-BB35-62228A173A2F' Directory='Xenvusb'>
+      <File Id='XenvusbSys' Source='$(var.DIR_XENVUSB)xenvusb.sys' KeyPath='yes' />
+      <File Id='XenvusbInf' Source='$(var.DIR_XENVUSB)xenvusb.inf' />
+      <File Id='XenvusbCat' Source='$(var.DIR_XENVUSB)xenvusb.cat' />
+      <File Id='XenvusbCoinst' Source='$(var.DIR_XENVUSB)xenvusb_coinst.dll' />
+      <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' />
+    </Component>
+    <Component Id='Xenusbdevice' Guid='3D2B8FE3-A2C4-4D78-B0D1-35D5DFFEBE9A' Directory='Xenusbdevice'>
+      <File Id='XenusbdeviceSys' Source='$(var.DIR_XENUSBDEVICE)xenusbdevice.sys' KeyPath='yes' />
+      <File Id='XenusbdeviceInf' Source='$(var.DIR_XENUSBDEVICE)xenusbdevice.inf' />
+      <File Id='XenusbdeviceCat' Source='$(var.DIR_XENUSBDEVICE)xenusbdevice.cat' />
+      <File Id='XenusbdeviceCoinst' Source='$(var.DIR_XENUSBDEVICE)xenusbdevice_coinst.dll' />
+      <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' />
+    </Component>
+    </ComponentGroup>
+  </Product>
+</Wix>
