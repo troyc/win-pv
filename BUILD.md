@@ -1,32 +1,26 @@
 Building OpenXT Tools
 =============================
 
-Note that only xenbus, xenvusb, and xenusbdevice are built; the other drivers
-use the binaries provided by the Xen Project.
+Note that only xenbus, xenvusb, xenusbdevice, and the installer are built; the other drivers
+use the binaries provided by the Xen Project. The drivers can be built on any Windows 10
+machine with a copy of the EWDK.
 
-First you'll need a device driver build environment for Windows 10. Happily
-Microsoft has made this easy with the introduction of the 'EWDK'. This is an
-ISO containing all the build environment you need (except for Wix, which is
-included in the project).
+First, fetch the submodules (xenvusb, xenusbdevice, and the forked xenbus):
 
-The package should support building with the following EWDKs:
+git submodule init
+git submodule update
 
-- EWDK for Windows 10, version 1903 with Visual Studio Build Tools 16.0
-- EWDK for Windows 10, version 1809 with Visual Studio Build Tools 15.8.9
+Then, run the powershell script to fetch the externals (the Xen PV drivers and Wix toolset)
 
-Once you have downloaded the ISO, open it and you should see a file called:
+powershell ./fetch-externals.ps1
 
-LaunchBuildEnv.cmd
-
-Run this and it should give you a build environment command prompt. From
-within this shell navigate to the root of your checked out repository
-and run:
+Finally, it's time to build the drivers. Mount the EWDK iso and run LaunchBuildEnv.cmd to
+launch the command prompt with a build environment. cd back to the win-pv directory and build
+all the drivers and the installer using:
 
 buildall.bat checked
 
-Or, for a release build:
+Or, for a free build:
 
 buildall.bat free
-
-
 
