@@ -1,0 +1,9 @@
+[submodule "xenbus"]
+	path = xenbus
+	url = https://github.com/troyc/xenbus.git
+[submodule "xenvusb"]
+	path = xenvusb
+	url = https://github.com/troyc/xenvusb.git
+[submodule "xenusbdevice"]
+	path = xenusbdevice
+	url = https://github.com/troyc/xenusbdevice.git
