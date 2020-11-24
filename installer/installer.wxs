@@ -13,6 +13,9 @@
   <?define DIR_XENVBD = $(var.SolutionDir)xenvbd\$(var.Platform)\ ?>
   <?define DIR_XENVUSB = $(var.SolutionDir)xenvusb\xenvusb\$(var.Platform)\ ?>
   <?define DIR_XENUSBDEVICE = $(var.SolutionDir)xenusbdevice\xenusbdevice\$(var.Platform)\ ?>
+  <?define DIR_IVC = $(var.SolutionDir)ivc\ivc\$(var.Platform)\ ?>
+  <?define DIR_PVDISPLAYHELPER = $(var.SolutionDir)pv-display-helper\display-driver-helper\$(var.Platform)\ ?>
+  <?define DIR_GLASSWDDM = $(var.SolutionDir)glasswddm\glasswddm\$(var.Platform)\ ?>
 
   <?define DIR_CERTS = $(var.ProjectDir) ?>
   <?define CERT_TESTSIGNING = testsigning.cer ?>
@@ -25,6 +28,7 @@
       <ComponentGroupRef Id="Certs" />
       <ComponentGroupRef Id="XenTools" />
       <ComponentGroupRef Id="MiscDrivers" />
+      <ComponentGroupRef Id="Vglass" />
     </Feature>
     <InstallExecuteSequence>
       <ScheduleReboot After="InstallFinalize"/>
@@ -43,6 +47,9 @@
           <Directory Id="Xenvkbd" Name="xenvkbd" />
           <Directory Id="Xenvusb" Name="xenvusb" />
           <Directory Id="Xenusbdevice" Name="xenusbdevice" />
+          <Directory Id="Ivc" Name="ivc" />
+          <Directory Id="DisplayDriverHelper" Name="displaydrierhelper" />
+          <Directory Id="Xenwddm" Name="xenwddm" />
         </Directory>
       </Directory>
     </Directory>
@@ -130,20 +137,40 @@
       </Component>
     </ComponentGroup>
     <ComponentGroup Id="MiscDrivers">
-    <Component Id='Xenvusb' Guid='F6E5C176-7869-49FD-BB35-62228A173A2F' Directory='Xenvusb'>
-      <File Id='XenvusbSys' Source='$(var.DIR_XENVUSB)xenvusb.sys' KeyPath='yes' />
-      <File Id='XenvusbInf' Source='$(var.DIR_XENVUSB)xenvusb.inf' />
-      <File Id='XenvusbCat' Source='$(var.DIR_XENVUSB)xenvusb.cat' />
-      <File Id='XenvusbCoinst' Source='$(var.DIR_XENVUSB)xenvusb_coinst.dll' />
-      <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' />
-    </Component>
-    <Component Id='Xenusbdevice' Guid='3D2B8FE3-A2C4-4D78-B0D1-35D5DFFEBE9A' Directory='Xenusbdevice'>
-      <File Id='XenusbdeviceSys' Source='$(var.DIR_XENUSBDEVICE)xenusbdevice.sys' KeyPath='yes' />
-      <File Id='XenusbdeviceInf' Source='$(var.DIR_XENUSBDEVICE)xenusbdevice.inf' />
-      <File Id='XenusbdeviceCat' Source='$(var.DIR_XENUSBDEVICE)xenusbdevice.cat' />
-      <File Id='XenusbdeviceCoinst' Source='$(var.DIR_XENUSBDEVICE)xenusbdevice_coinst.dll' />
-      <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' />
-    </Component>
+      <Component Id='Xenvusb' Guid='F6E5C176-7869-49FD-BB35-62228A173A2F' Directory='Xenvusb'>
+        <File Id='XenvusbSys' Source='$(var.DIR_XENVUSB)xenvusb.sys' KeyPath='yes' />
+        <File Id='XenvusbInf' Source='$(var.DIR_XENVUSB)xenvusb.inf' />
+        <File Id='XenvusbCat' Source='$(var.DIR_XENVUSB)xenvusb.cat' />
+        <File Id='XenvusbCoinst' Source='$(var.DIR_XENVUSB)xenvusb_coinst.dll' />
+        <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' />
+      </Component>
+      <Component Id='Xenusbdevice' Guid='3D2B8FE3-A2C4-4D78-B0D1-35D5DFFEBE9A' Directory='Xenusbdevice'>
+        <File Id='XenusbdeviceSys' Source='$(var.DIR_XENUSBDEVICE)xenusbdevice.sys' KeyPath='yes' />
+        <File Id='XenusbdeviceInf' Source='$(var.DIR_XENUSBDEVICE)xenusbdevice.inf' />
+        <File Id='XenusbdeviceCat' Source='$(var.DIR_XENUSBDEVICE)xenusbdevice.cat' />
+        <File Id='XenusbdeviceCoinst' Source='$(var.DIR_XENUSBDEVICE)xenusbdevice_coinst.dll' />
+        <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="Vglass">
+      <Component Id='Ivc' Guid='{927C8543-98E1-465E-86A8-166356878D63}' Directory='Ivc'>
+        <File Id='IvcSys' Source='$(var.DIR_IVC)ivc.sys' KeyPath='yes' />
+        <File Id='IvcInf' Source='$(var.DIR_IVC)ivc.inf' />
+        <File Id='IvcCat' Source='$(var.DIR_IVC)ivc.cat' />
+        <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' Sequence='0' />
+      </Component>
+      <Component Id='DisplayDriverHelper' Guid='{014DD64C-A25C-4A28-BF6E-AC64DDA342CC}' Directory='DisplayDriverHelper'>
+        <File Id='DisplayDriverHelperSys' Source='$(var.DIR_PVDISPLAYHELPER)display-driver-helper.sys' KeyPath='yes' />
+        <File Id='DisplayDriverHelperInf' Source='$(var.DIR_PVDISPLAYHELPER)display-driver-helper.inf' />
+        <File Id='DisplayDriverHelperCat' Source='$(var.DIR_PVDISPLAYHELPER)display-driver-helper.cat' />
+        <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' Sequence='1' />
+      </Component>
+      <Component Id='XenWDDM' Guid='{7475F904-D98C-4D3D-A854-679DCA0243A7}' Directory='Xenwddm'>
+        <File Id='XenWDDMSys' Source='$(var.DIR_GLASSWDDM)xenwddm.sys' KeyPath='yes' />
+        <File Id='XenWDDMInf' Source='$(var.DIR_GLASSWDDM)xenwddm.inf' />
+        <File Id='XenWDDMCat' Source='$(var.DIR_GLASSWDDM)xenwddm.cat' />
+        <difx:Driver AddRemovePrograms='no' PlugAndPlayPrompt='no' ForceInstall='yes' Sequence='2' />
+      </Component>
     </ComponentGroup>
   </Product>
 </Wix>

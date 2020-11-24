@@ -7,3 +7,12 @@
 [submodule "xenusbdevice"]
 	path = xenusbdevice
 	url = https://github.com/troyc/xenusbdevice.git
+[submodule "ivc"]
+	path = ivc
+	url = https://github.com/troyc/ivc.git
+[submodule "pv-display-helper"]
+	path = pv-display-helper
+	url = https://github.com/troyc/pv-display-helper.git
+[submodule "glasswddm"]
+	path = glasswddm
+	url = https://github.com/troyc/glasswddm.git
