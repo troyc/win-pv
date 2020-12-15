@@ -13,6 +13,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>OpenXT-Tools</OutputName>
     <OutputType>Package</OutputType>
+    <SuppressValidation>true</SuppressValidation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
