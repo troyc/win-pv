@@ -4,13 +4,13 @@
      xmlns:iis='http://schemas.microsoft.com/wix/IIsExtension'>
 
   <?define DIR_XENBUS = $(var.SolutionDir)xenbus\xenbus\$(var.Platform)\ ?>
-  <?define DIR_XENCONS = $(var.SolutionDir)xencons\$(var.Platform)\ ?>
-  <?define DIR_XENIFACE = $(var.SolutionDir)xeniface\$(var.Platform)\ ?>
-  <?define DIR_XENHID = $(var.SolutionDir)xenhid\$(var.Platform)\ ?>
-  <?define DIR_XENVKBD = $(var.SolutionDir)xenvkbd\$(var.Platform)\ ?>
-  <?define DIR_XENVIF = $(var.SolutionDir)xenvif\$(var.Platform)\ ?>
-  <?define DIR_XENNET = $(var.SolutionDir)xennet\$(var.Platform)\ ?>
-  <?define DIR_XENVBD = $(var.SolutionDir)xenvbd\$(var.Platform)\ ?>
+  <?define DIR_XENCONS = $(var.SolutionDir)xencons\xencons\$(var.Platform)\ ?>
+  <?define DIR_XENIFACE = $(var.SolutionDir)xeniface\xeniface\$(var.Platform)\ ?>
+  <?define DIR_XENHID = $(var.SolutionDir)xenhid\xenhid\$(var.Platform)\ ?>
+  <?define DIR_XENVKBD = $(var.SolutionDir)xenvkbd\xenvkbd\$(var.Platform)\ ?>
+  <?define DIR_XENVIF = $(var.SolutionDir)xenvif\xenvif\$(var.Platform)\ ?>
+  <?define DIR_XENNET = $(var.SolutionDir)xennet\xennet\$(var.Platform)\ ?>
+  <?define DIR_XENVBD = $(var.SolutionDir)xenvbd\xenvbd\$(var.Platform)\ ?>
   <?define DIR_XENVUSB = $(var.SolutionDir)xenvusb\xenvusb\$(var.Platform)\ ?>
   <?define DIR_XENUSBDEVICE = $(var.SolutionDir)xenusbdevice\xenusbdevice\$(var.Platform)\ ?>
   <?define DIR_IVC = $(var.SolutionDir)ivc\ivc\$(var.Platform)\ ?>
